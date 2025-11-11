@@ -1,11 +1,12 @@
 {
 	"schemaVersion": 1,
-	"id": "tetrismc",
+	"id": "bettertetrismc",
 	"version": "${version}",
-	"name": "Tetris MC",
+	"name": "Better Tetris MC",
 	"description": "Onscreen tetris to play while you're bored",
 	"authors": [
-		"Nukebob3"
+		"Nukebob3",
+        "Ulitkad"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/project/tetrismc",
@@ -13,18 +14,18 @@
 		"issues": "https://github.com/Nukebob3/TetrisMC/issues"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/tetrismc/icon.png",
+	"icon": "assets/bettertetrismc/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"net.nukebob.tetrismc.TetrisMC"
+          "space.ulitka.bettertetrismc.BetterTetrisMC"
 		],
 		"modmenu": [
-          "net.nukebob.tetrismc.config.ModMenuIntegration"
+          "space.ulitka.bettertetrismc.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"tetrismc.mixins.json"
+		"bettertetrismc.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.9",

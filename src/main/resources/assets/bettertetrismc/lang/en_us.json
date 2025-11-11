@@ -1,0 +1,28 @@
+{
+  "bettertetrismc:config.mod": "Mod",
+  "bettertetrismc:config.done": "Done",
+  "bettertetrismc:config.enabled": "Enabled",
+  "bettertetrismc:config.disabled": "Disabled",
+  "bettertetrismc:config.title": "Tetris MC Configuration",
+  "bettertetrismc:config.volume": "Volume",
+  "bettertetrismc:config.music": "Music",
+
+  "bettertetrismc:tetris.hard_drop": "Hard drop",
+  "bettertetrismc:tetris.random_texture": "Random Textures",
+  "bettertetrismc:tetris.hard_drop.previewless": "No preview",
+  "bettertetrismc:tetris.hard_drop.hologram": "Hologram",
+  "bettertetrismc:tetris.hard_drop.outline": "Outline",
+  "bettertetrismc:tetris.next": "NEXT",
+  "bettertetrismc:tetris.paused": "PAUSED",
+  "bettertetrismc:tetris.combo": "Combo",
+  "bettertetrismc:tetris.tetris": "TETRIS!!!",
+  "bettertetrismc:tetris.score": "SCORE",
+  "bettertetrismc:tetris.lines": "LINES CLEARED",
+  "bettertetrismc:tetris.high_score": "HIGH SCORE",
+  "bettertetrismc:tetris.new_high_score": "NEW HIGH SCORE",
+
+  "bettertetrismc:game.start": "Start game",
+  "bettertetrismc:game.return": "Return",
+  "bettertetrismc:game.restart": "Restart",
+  "bettertetrismc:game.pause": "Pause"
+}
