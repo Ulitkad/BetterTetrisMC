@@ -37,13 +37,13 @@ public abstract class Mino {
 
     public Mino() {
         switch (this) {
-            case Mino_Square ignored -> type = "square";
-            case Mino_Bar ignored -> type = "bar";
+            case Mino_O ignored -> type = "o";
+            case Mino_I ignored -> type = "i";
             case Mino_T ignored -> type = "t";
-            case Mino_L1 ignored -> type = "l1";
-            case Mino_L2 ignored -> type = "l2";
-            case Mino_Z1 ignored -> type = "z1";
-            case Mino_Z2 ignored -> type = "z2";
+            case Mino_L ignored -> type = "l";
+            case Mino_J ignored -> type = "j";
+            case Mino_S ignored -> type = "s";
+            case Mino_Z ignored -> type = "z";
             default -> {
             }
         }
@@ -375,7 +375,7 @@ public abstract class Mino {
                     }
                 }
                 //individual diagonal pixels
-                if (!(this instanceof Mino_Square)) {
+                if (!(this instanceof Mino_O)) {
                     if (!getOutline(block)[0] && !getOutline(block)[2]) {
                         context.drawVerticalLine(TetrisScreen.left_x + block.x, TetrisScreen.top_y + block.y + yOffset, TetrisScreen.top_y + block.y + yOffset, color.getRGB());
                     }

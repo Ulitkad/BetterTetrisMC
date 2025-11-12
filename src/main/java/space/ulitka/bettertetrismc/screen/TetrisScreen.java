@@ -22,6 +22,8 @@ import space.ulitka.bettertetrismc.game.tetris.mino.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static space.ulitka.bettertetrismc.game.tetris.mino.RandomMino.*;
+
 public class TetrisScreen extends Screen {
     private static final TetrisConfig config = TetrisConfig.loadConfig();
 
@@ -135,7 +137,7 @@ public class TetrisScreen extends Screen {
 
         nextMino = pickMino();
         nextMino.setXY(WIDTH + Block.SIZE * 2 +
-                        (nextMino instanceof Mino_L2 || nextMino instanceof Mino_Z1 ? Block.SIZE : (nextMino instanceof Mino_T ? Block.SIZE / 2 : 0)),
+                        (nextMino instanceof Mino_J || nextMino instanceof Mino_S ? Block.SIZE : (nextMino instanceof Mino_T ? Block.SIZE / 2 : 0)),
                 HEIGHT - (int) (Block.SIZE * 2.5f));
     }
 
@@ -206,7 +208,7 @@ public class TetrisScreen extends Screen {
 
             nextMino = pickMino();
             nextMino.setXY(WIDTH + Block.SIZE * 2 +
-                            (nextMino instanceof Mino_L2 || nextMino instanceof Mino_Z1 ? Block.SIZE : (nextMino instanceof Mino_T ? Block.SIZE / 2 : 0)),
+                            (nextMino instanceof Mino_J || nextMino instanceof Mino_S ? Block.SIZE : (nextMino instanceof Mino_T ? Block.SIZE / 2 : 0)),
                     HEIGHT - (int) (Block.SIZE * 2.5f));
         }
         float frameDuration = MinecraftClient.getInstance().getRenderTickCounter().getDynamicDeltaTicks();
@@ -218,6 +220,7 @@ public class TetrisScreen extends Screen {
         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvent.of(Identifier.ofVanilla("entity.pig.ambient")), 1.0F, 5.0f * config.tetris_volume));
         isNewHighScore = score > HighScores.loadHighScores().tetrisHighScore;
         active = false;
+        resetMinoList();
     }
 
     private boolean checkClear(int y) {
@@ -245,22 +248,6 @@ public class TetrisScreen extends Screen {
             level++;
         }
         return true;
-    }
-
-    private Mino pickMino() {
-        Mino mino = null;
-        int i = BetterTetrisMC.RANDOM.nextInt(7);
-        mino = switch (i) {
-            case 0 -> new Mino_L1();
-            case 1 -> new Mino_L2();
-            case 2 -> new Mino_Square();
-            case 3 -> new Mino_Bar();
-            case 4 -> new Mino_T();
-            case 5 -> new Mino_Z1();
-            case 6 -> new Mino_Z2();
-            default -> mino;
-        };
-        return mino;
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

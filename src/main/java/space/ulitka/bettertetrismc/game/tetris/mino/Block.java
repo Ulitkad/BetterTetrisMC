@@ -63,13 +63,13 @@ public class Block {
 
     private Identifier getDefaultTexture() {
         return switch (mino) {
-            case "square" -> Identifier.ofVanilla("block/gold_block");
-            case "bar" -> Identifier.ofVanilla("block/diamond_block");
+            case "o" -> Identifier.ofVanilla("block/gold_block");
+            case "i" -> Identifier.ofVanilla("block/diamond_block");
             case "t" -> Identifier.ofVanilla("block/amethyst_block");
-            case "l1" -> Identifier.ofVanilla("block/copper_block");
-            case "l2" -> Identifier.ofVanilla("block/lapis_block");
-            case "z1" -> Identifier.ofVanilla("block/redstone_block");
-            case "z2" -> Identifier.ofVanilla("block/emerald_block");
+            case "l" -> Identifier.ofVanilla("block/copper_block");
+            case "j" -> Identifier.ofVanilla("block/lapis_block");
+            case "s" -> Identifier.ofVanilla("block/redstone_block");
+            case "z" -> Identifier.ofVanilla("block/emerald_block");
             default -> Identifier.ofVanilla("block/iron_block");
         };
     }

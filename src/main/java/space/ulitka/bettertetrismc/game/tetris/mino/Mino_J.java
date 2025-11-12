@@ -1,6 +1,6 @@
 package space.ulitka.bettertetrismc.game.tetris.mino;
 
-public class Mino_L2 extends Mino {
+public class Mino_J extends Mino {
     public void setXY(int x, int y) {
         //   o
         //   o
