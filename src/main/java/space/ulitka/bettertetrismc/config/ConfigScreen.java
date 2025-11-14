@@ -1,81 +1,71 @@
 package space.ulitka.bettertetrismc.config;
 
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import me.shedaniel.clothconfig2.gui.entries.BooleanListEntry;
+import me.shedaniel.clothconfig2.gui.entries.IntegerListEntry;
+import me.shedaniel.clothconfig2.gui.entries.DoubleListEntry;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import space.ulitka.bettertetrismc.BetterTetrisMC;
 
-public class ConfigScreen extends Screen {
+public class ConfigScreen {
 
-    private final Screen parent;
+    public static Screen getScreen(Screen parent) {
+        TetrisConfig config = TetrisConfig.loadConfig();
 
-    TetrisConfig config = TetrisConfig.loadConfig();
+        ConfigBuilder builder = ConfigBuilder.create()
+                .setParentScreen(parent)
+                .setTitle(Text.translatable(BetterTetrisMC.MOD_ID + ":config.title"));
 
-    int enableColour = 8781731;
-    int disableColour = 16745861;
+        ConfigCategory general = builder.getOrCreateCategory(Text.translatable(BetterTetrisMC.MOD_ID + ":config.general"));
 
-    public ConfigScreen(Screen parent) {
-        super(Text.translatable(BetterTetrisMC.MOD_ID + ":config.title"));
-        this.parent = parent;
-    }
+        ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-    @Override
-    protected void init() {
-        int buttonWidth = 150;
-        int buttonHeight = 20;
-        int centerX = this.width / 2;
-        int centerY = this.height / 2;
+        BooleanListEntry modEnabledEntry = entryBuilder
+                .startBooleanToggle(Text.translatable(BetterTetrisMC.MOD_ID + ":config.mod"), config.mod_enabled)
+                .setSaveConsumer(newValue -> {
+                    config.mod_enabled = newValue;
+                    TetrisConfig.saveConfig();
+                })
+                .build();
+        general.addEntry(modEnabledEntry);
 
-        ButtonWidget toggleModEnabledWidget = ButtonWidget.builder(Text.translatable(BetterTetrisMC.MOD_ID + ":config.mod").append(" ").append(Text.translatable(BetterTetrisMC.MOD_ID + ":config." + (config.mod_enabled ? "enabled" : "disabled"))).withColor(config.mod_enabled ? Colors.GREEN : Colors.RED), this::toggleModEnabled)
-                .dimensions(centerX - buttonWidth / 2, centerY - 45, buttonWidth, buttonHeight).build();
-        ButtonWidget hardDropSettingsWidget = ButtonWidget.builder(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.hard_drop").append(": ").append(Text.translatable(config.tetris_hard_drop == 0 ? BetterTetrisMC.MOD_ID + ":config.disabled" : BetterTetrisMC.MOD_ID + ":tetris.hard_drop." + (config.tetris_hard_drop == 1 ? "previewless" : (config.tetris_hard_drop == 2 ? "outline" : "hologram")))).withColor((config.tetris_hard_drop != 0) ? enableColour : disableColour), button -> {config.tetris_hard_drop++; if (config.tetris_hard_drop > 3) config.tetris_hard_drop = 0; button.setMessage(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.hard_drop").append(": ").append(Text.translatable(config.tetris_hard_drop == 0 ? BetterTetrisMC.MOD_ID + ":config.disabled" : BetterTetrisMC.MOD_ID + ":tetris.hard_drop." + (config.tetris_hard_drop == 1 ? "previewless" : (config.tetris_hard_drop == 2 ? "outline" : "hologram")))).withColor((config.tetris_hard_drop != 0) ? enableColour : disableColour)); TetrisConfig.saveConfig();})
-                .dimensions(centerX - buttonWidth / 2, centerY - 20, buttonWidth, buttonHeight).build();
-        ButtonWidget randomTextureEnabledWidget = ButtonWidget.builder(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.random_texture").append(" ").append(Text.translatable(BetterTetrisMC.MOD_ID + ":config." + (config.tetris_random_textures ? "enabled" : "disabled"))).withColor(config.tetris_random_textures ? enableColour : disableColour), this::toggleRandomTextureEnabled)
-                .dimensions(centerX - buttonWidth / 2, centerY, buttonWidth, buttonHeight).build();
-        SliderWidget volumeSlider = new SliderWidget(centerX - buttonWidth / 2, centerY + 20, buttonWidth, buttonHeight,
-                Text.translatable(BetterTetrisMC.MOD_ID + ":config.volume"), config.tetris_volume) {
-            {
-                this.updateMessage();
-            }
-            @Override
-            protected void updateMessage() {
-                this.setMessage(Text.translatable(BetterTetrisMC.MOD_ID + ":config.volume").append(": " + (int) (Math.round(this.value * 100)) + "%"));
-            }
+        IntegerListEntry hardDropEntry = entryBuilder
+                .startIntField(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.hard_drop"), config.tetris_hard_drop)
+                .setDefaultValue(0)
+                .setSaveConsumer(newValue -> {
+                    if (newValue < 0) newValue = 0;
+                    if (newValue > 3) newValue = 3;
+                    config.tetris_hard_drop = newValue;
+                    TetrisConfig.saveConfig();
+                })
+                .setTooltip(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.hard_drop.tooltip"))
+                .build();
+        general.addEntry(hardDropEntry);
 
-            @Override
-            protected void applyValue() {
-                config.tetris_volume = (float) this.value;
-                TetrisConfig.saveConfig();
-            }
-        };
+        BooleanListEntry randomTexturesEntry = entryBuilder
+                .startBooleanToggle(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.random_texture"), config.tetris_random_textures)
+                .setSaveConsumer(newValue -> {
+                    config.tetris_random_textures = newValue;
+                    TetrisConfig.saveConfig();
+                })
+                .build();
+        general.addEntry(randomTexturesEntry);
 
-        ButtonWidget doneButtonWidget = ButtonWidget.builder(Text.translatable(BetterTetrisMC.MOD_ID + ":config.done").withColor(Colors.WHITE), button -> closeScreen())
-                .dimensions(centerX - buttonWidth / 2, centerY + 45, buttonWidth, buttonHeight).build();
+        DoubleListEntry volumeEntry = entryBuilder
+                .startDoubleField(Text.translatable(BetterTetrisMC.MOD_ID + ":config.volume"), config.tetris_volume)
+                .setDefaultValue(1.0)
+                .setSaveConsumer(newValue -> {
+                    config.tetris_volume = newValue.floatValue();
+                    TetrisConfig.saveConfig();
+                })
+                .setMin(0.0)
+                .setMax(1.0)
+                .build();
+        general.addEntry(volumeEntry);
 
-        this.addDrawableChild(toggleModEnabledWidget);
-        this.addDrawableChild(hardDropSettingsWidget);
-        this.addDrawableChild(randomTextureEnabledWidget);
-        this.addDrawableChild(volumeSlider);
-        this.addDrawableChild(doneButtonWidget);
-
-        super.init();
-    }
-
-    private void toggleModEnabled(ButtonWidget buttonWidget) {
-        config.mod_enabled = !config.mod_enabled;
-        buttonWidget.setMessage(Text.translatable(BetterTetrisMC.MOD_ID + ":config.mod").append(" ").append(Text.translatable(BetterTetrisMC.MOD_ID + ":config." + (config.mod_enabled ? "enabled" : "disabled"))).withColor(config.mod_enabled ? Colors.GREEN : Colors.RED));
-        TetrisConfig.saveConfig();
-    }
-
-    private void toggleRandomTextureEnabled(ButtonWidget buttonWidget) {
-        config.tetris_random_textures = !config.tetris_random_textures;
-        buttonWidget.setMessage(Text.translatable(BetterTetrisMC.MOD_ID + ":tetris.random_texture").append(" ").append(Text.translatable(BetterTetrisMC.MOD_ID + ":config." + (config.tetris_random_textures ? "enabled" : "disabled"))).withColor(config.tetris_random_textures ? enableColour : disableColour));
-        TetrisConfig.saveConfig();
-    }
-
-    private void closeScreen() {
-        this.client.setScreen(this.parent);
+        return builder.build();
     }
 }
