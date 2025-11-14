@@ -18,6 +18,7 @@ import space.ulitka.bettertetrismc.BetterTetrisMC;
 import space.ulitka.bettertetrismc.config.TetrisConfig;
 import space.ulitka.bettertetrismc.game.tetris.Controls;
 import space.ulitka.bettertetrismc.game.tetris.HardDropAnimation;
+import space.ulitka.bettertetrismc.game.tetris.mino.minos.*;
 import space.ulitka.bettertetrismc.screen.TetrisScreen;
 
 import java.awt.*;

@@ -1,6 +1,6 @@
 package space.ulitka.bettertetrismc.game.tetris.mino;
 
-import space.ulitka.bettertetrismc.BetterTetrisMC;
+import space.ulitka.bettertetrismc.game.tetris.mino.minos.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,7 @@
-package space.ulitka.bettertetrismc.game.tetris.mino;
+package space.ulitka.bettertetrismc.game.tetris.mino.minos;
+
+import space.ulitka.bettertetrismc.game.tetris.mino.Block;
+import space.ulitka.bettertetrismc.game.tetris.mino.Mino;
 
 public class Mino_J extends Mino {
     public void setXY(int x, int y) {

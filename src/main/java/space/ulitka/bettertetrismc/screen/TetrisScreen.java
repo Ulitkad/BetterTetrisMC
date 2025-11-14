@@ -18,6 +18,9 @@ import space.ulitka.bettertetrismc.game.HighScores;
 import space.ulitka.bettertetrismc.game.tetris.Animation;
 import space.ulitka.bettertetrismc.game.tetris.Controls;
 import space.ulitka.bettertetrismc.game.tetris.mino.*;
+import space.ulitka.bettertetrismc.game.tetris.mino.minos.Mino_J;
+import space.ulitka.bettertetrismc.game.tetris.mino.minos.Mino_S;
+import space.ulitka.bettertetrismc.game.tetris.mino.minos.Mino_T;
 
 import java.awt.*;
 import java.util.ArrayList;
