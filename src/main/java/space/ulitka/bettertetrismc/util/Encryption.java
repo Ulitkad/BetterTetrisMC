@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class Encryption {
-    private static final String SECRET_KEY = "IlOveM0dMad3ByNuk3b0b"; //16 chars
+    private static final String SECRET_KEY = "ItsVerySecretKey"; //16 chars
 
     public static String encrypt(String value) throws Exception {
         byte[] key = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
